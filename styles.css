@@ -1,0 +1,362 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&display=swap');
+
+:root {
+    --neon: #00f5ff;
+    --red: #ff2d55;
+    --gold: #ffd60a;
+    --bg: #05050f;
+    --asphalt: #1a1a2e;
+    --stripe: #ffffff10;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    font-family: 'Rajdhani', sans-serif;
+    color: white;
+    overflow: hidden;
+    user-select: none;
+}
+
+#gameWrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+canvas {
+    display: block;
+    image-rendering: pixelated;
+}
+
+/* HUD */
+#hud {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.hud-panel {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--neon);
+    padding: 10px 18px;
+    border-radius: 4px;
+    box-shadow: 0 0 20px #00f5ff33;
+}
+
+.hud-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--neon);
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+.hud-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    line-height: 1;
+    color: white;
+    text-shadow: 0 0 20px var(--neon);
+}
+
+.hud-value.red {
+    color: var(--red);
+    text-shadow: 0 0 20px var(--red);
+}
+
+.hud-value.gold {
+    color: var(--gold);
+    text-shadow: 0 0 20px var(--gold);
+}
+
+/* SPEEDOMETER */
+#speedoContainer {
+    position: absolute;
+    bottom: 20px;
+    right: 24px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+#speedoCanvas {
+    width: 160px;
+    height: 160px;
+}
+
+/* NITRO BAR */
+#nitroContainer {
+    position: absolute;
+    bottom: 28px;
+    left: 24px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.nitro-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--neon);
+    margin-bottom: 6px;
+    text-shadow: 0 0 10px var(--neon);
+}
+
+#nitroBar {
+    width: 160px;
+    height: 14px;
+    border: 1px solid var(--neon);
+    border-radius: 7px;
+    overflow: hidden;
+    background: #00f5ff11;
+    box-shadow: 0 0 12px #00f5ff55;
+}
+
+#nitroFill {
+    height: 100%;
+    background: linear-gradient(90deg, #00b4d8, var(--neon));
+    border-radius: 7px;
+    transition: width 0.1s;
+    box-shadow: 0 0 8px var(--neon);
+}
+
+/* SCREENS */
+.screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(5, 5, 15, 0.95);
+    z-index: 20;
+}
+
+.screen.hidden {
+    display: none;
+}
+
+.game-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 12vw, 120px);
+    letter-spacing: 8px;
+    background: linear-gradient(135deg, var(--neon), var(--red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    filter: drop-shadow(0 0 30px #00f5ff88);
+    animation: titlePulse 2s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 30px #00f5ff88);
+    }
+
+    50% {
+        filter: drop-shadow(0 0 60px #ff2d5588);
+    }
+}
+
+.subtitle {
+    color: var(--neon);
+    letter-spacing: 6px;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 50px;
+    opacity: 0.7;
+}
+
+.btn {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 4px;
+    padding: 14px 50px;
+    border: 2px solid var(--neon);
+    background: transparent;
+    color: var(--neon);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    margin: 8px;
+    text-shadow: 0 0 10px var(--neon);
+    box-shadow: 0 0 20px #00f5ff33, inset 0 0 20px #00f5ff11;
+}
+
+.btn:hover {
+    background: var(--neon);
+    color: var(--bg);
+    box-shadow: 0 0 40px var(--neon);
+    text-shadow: none;
+    transform: scale(1.05);
+}
+
+.btn.red-btn {
+    border-color: var(--red);
+    color: var(--red);
+    text-shadow: 0 0 10px var(--red);
+    box-shadow: 0 0 20px #ff2d5533, inset 0 0 20px #ff2d5511;
+}
+
+.btn.red-btn:hover {
+    background: var(--red);
+    color: white;
+    box-shadow: 0 0 40px var(--red);
+}
+
+.controls-hint {
+    margin-top: 40px;
+    color: #ffffff55;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-align: center;
+    line-height: 2;
+}
+
+.controls-hint span {
+    color: var(--neon);
+}
+
+/* DIFFICULTY */
+.diff-select {
+    display: flex;
+    gap: 12px;
+    margin: 20px 0 30px;
+}
+
+.diff-btn {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 3px;
+    padding: 10px 28px;
+    border: 1px solid #ffffff33;
+    background: transparent;
+    color: #ffffff66;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.diff-btn.active,
+.diff-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    box-shadow: 0 0 20px #ffd60a44;
+}
+
+/* GAME OVER */
+.final-score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    color: var(--gold);
+    text-shadow: 0 0 40px var(--gold);
+    margin: 10px 0;
+}
+
+.final-label {
+    color: #ffffff55;
+    letter-spacing: 4px;
+    font-size: 13px;
+}
+
+/* MOBILE CONTROLS */
+#mobileControls {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 180px;
+    z-index: 15;
+    pointer-events: none;
+}
+
+.m-btn {
+    position: absolute;
+    background: rgba(0, 245, 255, 0.15);
+    border: 2px solid var(--neon);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: var(--neon);
+    pointer-events: all;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#mLeft {
+    width: 70px;
+    height: 70px;
+    bottom: 60px;
+    left: 30px;
+}
+
+#mRight {
+    width: 70px;
+    height: 70px;
+    bottom: 60px;
+    left: 120px;
+}
+
+#mNitro {
+    width: 70px;
+    height: 70px;
+    bottom: 60px;
+    right: 30px;
+    border-color: var(--red);
+    color: var(--red);
+    background: rgba(255, 45, 85, 0.15);
+}
+
+@media (max-width: 768px) or (pointer: coarse) {
+    #mobileControls {
+        display: block;
+    }
+}
+
+/* SCANLINE OVERLAY */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, #00000008 2px, #00000008 4px);
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* LAP FLASH */
+#lapFlash {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    letter-spacing: 8px;
+    color: var(--gold);
+    text-shadow: 0 0 40px var(--gold);
+    pointer-events: none;
+    z-index: 12;
+    opacity: 0;
+    transition: opacity 0.2s;
+}

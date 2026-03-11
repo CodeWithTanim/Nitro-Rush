@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NITRO RUSH — Racing Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="gameWrapper">
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- HUD -->
+        <div id="hud">
+            <div class="hud-panel">
+                <div class="hud-label">Score</div>
+                <div class="hud-value gold" id="scoreDisplay">0</div>
+            </div>
+            <div class="hud-panel" style="text-align:center">
+                <div class="hud-label">Lap</div>
+                <div class="hud-value" id="lapDisplay">1 / 3</div>
+            </div>
+            <div class="hud-panel" style="text-align:right">
+                <div class="hud-label">Best</div>
+                <div class="hud-value red" id="bestDisplay">---</div>
+            </div>
+        </div>
+
+        <div id="lapFlash">LAP COMPLETE!</div>
+
+        <!-- SPEEDOMETER -->
+        <div id="speedoContainer">
+            <canvas id="speedoCanvas" width="160" height="160"></canvas>
+        </div>
+
+        <!-- NITRO -->
+        <div id="nitroContainer">
+            <div class="nitro-label">⚡ NITRO</div>
+            <div id="nitroBar">
+                <div id="nitroFill" style="width:100%"></div>
+            </div>
+        </div>
+
+        <!-- MOBILE CONTROLS -->
+        <div id="mobileControls">
+            <div class="m-btn" id="mLeft">◀</div>
+            <div class="m-btn" id="mRight">▶</div>
+            <div class="m-btn" id="mNitro">N</div>
+        </div>
+
+        <!-- START SCREEN -->
+        <div class="screen" id="startScreen">
+            <div class="game-title">NITRO<br>RUSH</div>
+            <div class="subtitle">HIGH SPEED RACING</div>
+            <div class="diff-select">
+                <button class="diff-btn active" id="dEasy" onclick="setDiff('easy')">EASY</button>
+                <button class="diff-btn" id="dMedium" onclick="setDiff('medium')">MEDIUM</button>
+                <button class="diff-btn" id="dHard" onclick="setDiff('hard')">HARD</button>
+            </div>
+            <button class="btn" onclick="startGame()">START ENGINE</button>
+            <div class="controls-hint">
+                <span>←→ / A D</span> — STEER &nbsp;&nbsp;
+                <span>SHIFT</span> — NITRO BOOST<br>
+                <span>↑ / W</span> — ACCELERATE &nbsp;&nbsp;
+                <span>↓ / S</span> — BRAKE
+            </div>
+        </div>
+
+        <!-- GAME OVER SCREEN -->
+        <div class="screen hidden" id="overScreen">
+            <div class="game-title" style="font-size:clamp(40px,8vw,80px)">RACE<br>OVER</div>
+            <div class="final-label">FINAL SCORE</div>
+            <div class="final-score" id="finalScore">0</div>
+            <div style="color:#ffffff44;font-size:13px;letter-spacing:3px;margin-bottom:30px" id="finalTime"></div>
+            <button class="btn" onclick="startGame()">RACE AGAIN</button>
+            <button class="btn red-btn" onclick="showStart()">MAIN MENU</button>
+        </div>
+
+        <!-- WIN SCREEN -->
+        <div class="screen hidden" id="winScreen">
+            <div class="game-title"
+                style="font-size:clamp(40px,8vw,80px);background:linear-gradient(135deg,#ffd60a,#ff2d55)">VICTORY!</div>
+            <div class="final-label">YOU FINISHED THE RACE</div>
+            <div class="final-score" id="winScore">0</div>
+            <div style="color:#ffffff44;font-size:13px;letter-spacing:3px;margin-bottom:30px" id="winTime"></div>
+            <button class="btn" onclick="startGame()">RACE AGAIN</button>
+            <button class="btn red-btn" onclick="showStart()">MAIN MENU</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
